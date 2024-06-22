@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stacking Card Animation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;800&display=swap"
+    />
+
+    <style>
+      :root {
+        --pr-color: #da3417;
+        --second-color: #efe8e8;
+        --cubicbz: cubic-bezier(0.9, 0, 0.1, 1);
+        --index: 35px;
+        --fz-big: 70px;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        margin: 0;
+        padding: 0;
+        font-feature-settings:
+          "pnum" on,
+          "lnum" on;
+      }
+
+      body {
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: url("https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTEwL2ZyZWVpbWFnZXNjb21wYW55X3JlYWxpc3RpY19mb3JiaWRkZW5fZm9yZXN0XzMzMjJhZWIzLWQyYjAtNGVlOS05ZDU2LTdiZDk3M2QzNDBhOF8xLmpwZw.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(30px);
+        transform: scale(2);
+        z-index: 1;
+      }
+
+      .wrapp {
+        position: relative;
+        z-index: 2;
+      }
+
+      .color {
+        color: var(--second-color);
+      }
+
+      .fixed-top {
+        position: fixed;
+        width: 100%;
+        padding: var(--index);
+        top: 0;
+        left: 0;
+        z-index: 3;
+      }
+
+      .title {
+        height: auto;
+        margin: 0;
+        text-align: right;
+        font-size: var(--fz-sm);
+        line-height: 1;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--pr-color);
+      }
+
+      .fixed-footer {
+        position: fixed;
+        width: 100%;
+        height: auto;
+        padding: var(--index);
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 3;
+      }
+
+      .fixed-footer__wrapp {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: auto;
+      }
+
+      .fixed-footer__txt {
+        position: relative;
+        padding-left: 60px;
+        color: var(--second-color);
+        font-size: var(--fz-sm);
+        text-transform: uppercase;
+      }
+
+      .fixed-footer__txt:nth-child(2) {
+        margin-left: auto;
+        color: var(--pr-color);
+        text-align: right;
+        line-height: 0.7;
+        font-size: 50px;
+      }
+
+      .fixed-footer__img {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      .fixed-footer__img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        animation: rotate 9s infinite linear;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      .animation-title {
+        position: fixed;
+        height: auto;
+        margin: 0;
+        padding-top: var(--index);
+        padding-left: var(--index);
+        top: 0;
+        left: 0;
+        font-size: var(--fz-big);
+        line-height: 1;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--pr-color);
+        z-index: 1;
+      }
+
+      .footer {
+        height: 30vh;
+        background: #baa0a01a;
+        backdrop-filter: blur(10px);
+      }
+
+      .section-card {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        padding-bottom: 80px;
+        padding-top: 250px;
+        z-index: 2;
+      }
+
+      .cards {
+        width: 70%;
+        margin: 0 auto;
+        padding: 0 50px;
+      }
+
+      .cards__item {
+        width: 100%;
+        perspective: 500px;
+        margin-bottom: 50px;
+      }
+
+      .cards__item:last-child {
+        margin-bottom: 0;
+      }
+
+      .cards__el {
+        width: 100%;
+        height: 400px;
+      }
+
+      .cards__el-wrapp {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        gap: 40px;
+        padding: 45px;
+        border-radius: 20px;
+        background: #baa0a01a;
+        backdrop-filter: blur(10px);
+        will-change: blur;
+      }
+
+      .cards__img {
+        width: 40%;
+        height: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .cards__img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .cards__txt {
+        width: calc(60% - 40px);
+      }
+
+      .cards__el-title {
+        margin-bottom: 20px;
+        font-size: 35px;
+        color: #242126;
+        text-transform: uppercase;
+      }
+
+      .cards__el-p {
+        color: var(--second-color);
+        font-size: 20px;
+      }
+
+      .end-anim {
+        height: 1px;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapp">
+      <div class="fixed-top">
+        <h2 class="title">
+          Made By <br /><span class="color">Approvecode</span>
+        </h2>
+      </div>
+
+      <div class="fixed-footer">
+        <div class="fixed-footer__wrapp">
+          <div class="fixed-footer__txt">
+            <div class="fixed-footer__img">
+              <img
+                src="https://www.starboxx.de/img/slideshow/slide_1698998421_2880.webp"
+                alt=""
+              />
+            </div>
+            full code in description
+          </div>
+        </div>
+      </div>
+
+      <h2 class="animation-title">
+        <span class="color">Stacking Card</span> Aniamtion
+      </h2>
+
+      <section class="section-card">
+        <div class="cards">
+          <div class="cards__item">
+            <div class="cards__el">
+              <div class="cards__el-wrapp">
+                <div class="cards__img">
+                  <img
+                    src="https://www.starboxx.de/img/slideshow/slide_1698998421_2880.webp"
+                    alt="1"
+                  />
+                </div>
+                <div class="cards__txt">
+                  <h3 class="cards__el-title">Numinous</h3>
+                  <p class="cards__el-p">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Ipsum perferendis odio sint veniam non totam?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cards__item">
+            <div class="cards__el">
+              <div class="cards__el-wrapp">
+                <div class="cards__img">
+                  <img
+                    src="https://www.starboxx.de/img/slideshow/slide_1698998421_2880.webp"
+                    alt="2"
+                  />
+                </div>
+                <div class="cards__txt">
+                  <h3 class="cards__el-title">Opalescent</h3>
+                  <p class="cards__el-p">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Ipsum perferendis odio sint veniam non totam?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cards__item">
+            <div class="cards__el">
+              <div class="cards__el-wrapp">
+                <div class="cards__img">
+                  <img
+                    src="https://www.starboxx.de/img/slideshow/slide_1698998421_2880.webp"
+                    alt="3"
+                  />
+                </div>
+                <div class="cards__txt">
+                  <h3 class="cards__el-title">Nebulous</h3>
+                  <p class="cards__el-p">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Ipsum perferendis odio sint veniam non totam?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cards__item">
+            <div class="cards__el">
+              <div class="cards__el-wrapp">
+                <div class="cards__img">
+                  <img
+                    src="https://www.starboxx.de/img/slideshow/slide_1698998421_2880.webp"
+                    alt="4"
+                  />
+                </div>
+                <div class="cards__txt">
+                  <h3 class="cards__el-title">Incoate</h3>
+                  <p class="cards__el-p">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Ipsum perferendis odio sint veniam non totam?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cards__item">
+            <div class="cards__el">
+              <div class="cards__el-wrapp">
+                <div class="cards__img">
+                  <img
+                    src="https://www.starboxx.de/img/slideshow/slide_1698998421_2880.webp"
+                    alt="5"
+                  />
+                </div>
+                <div class="cards__txt">
+                  <h3 class="cards__el-title">Penumbra</h3>
+                  <p class="cards__el-p">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Ipsum perferendis odio sint veniam non totam?
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="end-anim"></div>
+      </section>
+
+      <footer class="footer">
+        <button>YO</button>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        "use strict";
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis();
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+
+        const cardsWrapper = gsap.utils.toArray(".cards__item");
+        const cardsEl = gsap.utils.toArray(".cards__el");
+
+        cardsWrapper.forEach((e, i) => {
+          const card = cardsEl[i];
+          let scale = 1,
+            rotate = 0;
+
+          if (i !== cardsEl.length - 1) {
+            scale = 0.9 + 0.025 * i;
+            rotate = -10;
+          }
+
+          gsap.to(card, {
+            scale: scale,
+            rotationX: rotate,
+            transformOrigin: "top center",
+            ease: "none",
+            scrollTrigger: {
+              trigger: e,
+              start: "top " + (70 + 40 * i),
+              end: "bottom +=650px",
+              endTrigger: ".end-anim",
+              pin: e,
+              pinSpacing: false,
+              scrub: true,
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
